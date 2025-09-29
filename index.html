@@ -24,32 +24,27 @@
  </head> 
 <body>
 <div id="container"> 
-<iframe id='my-gas-iframe' class="responsive-iframe" src="https://script.google.com/macros/s/AKfycbzPCMacRbGutJPbUMOkrTheN-G7Po1LQpupmkYJW_8el0wdXQIogTeBg95431yX6H-M/exec">
+<iframe id='my-gas-iframe' class="responsive-iframe" src="https://script.google.com/macros/s/AKfycbzPCMacRbGutJPbUMOkrTheN-G7Po1LQpupmkYJW_8el0wdXQIogTeBg95431yX6H-M/exec" allow="fullscreen; autoplay; camera; microphone; payment; geolocation">
 </iframe>
 </div>
 <script>
-  window.addEventListener('message', function(event) {
-    // 1. Verificação de Origem (CRUCIAL): Garante que apenas o seu Apps Script possa enviar comandos.
-    // Substitua 'https://script.google.com/macros/' pelo domínio real do seu App Script.
-    if (event.origin.startsWith('https://script.google.com')) { 
-
-      const data = event.data;
-
-      // 2. Verifica a Ação (action: 'reload_iframe')
-      if (data && data.action === 'reload_iframe' && data.url) {
+// Adiciona o ouvinte para receber mensagens de qualquer iframe
+window.addEventListener('message', (event) => {
+    // 1. **Verificação de Segurança:** // Certifique-se de que a mensagem veio do seu Google Script.
+    // O Google Script tem um domínio complexo (googleusercontent.com).
+    // Uma forma mais simples de verificar o remetente é testar se o objeto é o que você espera.
+    
+    // Verifique o tipo da mensagem
+    if (event.data && event.data.tipo === 'ATUALIZAR_HASH') {
+        const novoHash = event.data.hash;
         
-        console.log('Mensagem recebida do Iframe. Forçando recarga limpa...');
-
-        const iframe = document.getElementById('my-gas-iframe');
+        // 2. **Atualiza o hash:** Apenas o pai pode fazer isso.
+        // Isso dispara o evento 'hashchange' que você já tem no código do pai.
+        window.location.hash = novoHash;
         
-        if (iframe) {
-          // 3. Força a recarga: Muda a URL do iframe para a URL que o GAS enviou.
-          // Isso força o navegador a fazer uma requisição limpa ao GAS.
-          iframe.src = data.url;
-        }
-      }
+        console.log("Hash do pai atualizado para:", novoHash);
     }
-  });
+});
 </script>
 </body>
 </html>
