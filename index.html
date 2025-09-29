@@ -28,21 +28,25 @@
 </iframe>
 </div>
 <script>
-window.addEventListener('message', (event) => {
-    // 1. Verificação de ORIGEM do REMETENTE: Deve ser o domínio do Google Script
-    if (event.origin.includes('googleusercontent.com') && event.data) {
-        
-        // 2. Verificação do TIPO:
-        if (event.data.tipo === 'ATUALIZAR_HASH_GITHUB') {
-            const novoHash = event.data.hash;
-            
-            // Ação: Atualiza o Hash da página pai
-            window.location.hash = novoHash;
-            
-            console.log("Hash do GitHub Pages atualizado para:", novoHash);
-        }
-    }
-});
+function carregarIframePeloHash() {
+    const iframe = document.getElementById('app-iframe');
+    const appBaseUrl = 'SUA_URL_DO_GOOGLE_SCRIPT/exec'; 
+
+    let hash = window.location.hash.substring(1) || "inicio"; 
+    
+    // Constrói a URL do iframe com o parâmetro de consulta para o Google Script
+    const finalIframeUrl = appBaseUrl + '?page=' + hash; 
+    
+    // Recarrega o iframe com o novo estado
+    iframe.src = finalIframeUrl;
+    console.log("Iframe recarregado com URL:", finalIframeUrl);
+}
+
+// 1. Carrega o estado inicial
+carregarIframePeloHash();
+
+// 2. Escuta a mudança de hash (disparado pelo botão Voltar ou pelo google.script.history.push)
+window.addEventListener('hashchange', carregarIframePeloHash); 
 </script>
 </body>
 </html>
