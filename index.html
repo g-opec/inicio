@@ -28,17 +28,21 @@
 </iframe>
 </div>
 <script>
-// ADICIONE ESTE OUVINTE DE MENSAGENS:
 window.addEventListener('message', (event) => {
-    // 1. Verifica se a mensagem veio do seu Google Script e tem o tipo correto
-    if (event.data && event.data.tipo === 'ATUALIZAR_HASH') {
-        const novoHash = event.data.hash;
+    // 1. Verificação de ORIGEM do REMETENTE: Deve ser o domínio do Google Script
+    if (event.origin.includes('googleusercontent.com') && event.data) {
         
-        // 2. A janela pai (GitHub Pages) modifica o próprio hash. 
-        // Isso é permitido e resolve o erro de segurança.
-        window.location.hash = novoHash;
-        
-        console.log("Hash do GitHub Pages atualizado para:", novoHash);
+        // 2. Verificação do TIPO:
+        if (event.data.tipo === 'ATUALIZAR_HASH_GITHUB') {
+            const novoHash = event.data.hash;
+            
+            // Ação: Atualiza o Hash da página pai
+            window.location.hash = novoHash;
+            
+            console.log("Hash do GitHub Pages atualizado para:", novoHash);
+        }
+    } else {
+        console.warn("Mensagem rejeitada. Origem inesperada:", event.origin);
     }
 });
 </script>
