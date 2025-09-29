@@ -31,7 +31,7 @@
   window.addEventListener('message', function(event) {
     // 1. Verificação de Origem (CRUCIAL): Garante que apenas o seu Apps Script possa enviar comandos.
     // Substitua 'https://script.google.com/macros/' pelo domínio real do seu App Script.
-    if (event.origin.startsWith('https://script.google.com/macros/')) { 
+    if (event.origin.startsWith('https://script.google.com')) { 
 
       const data = event.data;
 
