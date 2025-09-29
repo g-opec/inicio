@@ -24,8 +24,32 @@
  </head> 
 <body>
 <div id="container"> 
-<iframe class="responsive-iframe" src="https://script.google.com/macros/s/AKfycbzPCMacRbGutJPbUMOkrTheN-G7Po1LQpupmkYJW_8el0wdXQIogTeBg95431yX6H-M/exec">
+<iframe id='my-gas-iframe' class="responsive-iframe" src="https://script.google.com/macros/s/AKfycbzPCMacRbGutJPbUMOkrTheN-G7Po1LQpupmkYJW_8el0wdXQIogTeBg95431yX6H-M/exec">
 </iframe>
 </div>
+<script>
+  window.addEventListener('message', function(event) {
+    // 1. Verificação de Origem (CRUCIAL): Garante que apenas o seu Apps Script possa enviar comandos.
+    // Substitua 'https://script.google.com/macros/' pelo domínio real do seu App Script.
+    if (event.origin.startsWith('https://script.google.com/macros/')) { 
+
+      const data = event.data;
+
+      // 2. Verifica a Ação (action: 'reload_iframe')
+      if (data && data.action === 'reload_iframe' && data.url) {
+        
+        console.log('Mensagem recebida do Iframe. Forçando recarga limpa...');
+
+        const iframe = document.getElementById('my-gas-iframe');
+        
+        if (iframe) {
+          // 3. Força a recarga: Muda a URL do iframe para a URL que o GAS enviou.
+          // Isso força o navegador a fazer uma requisição limpa ao GAS.
+          iframe.src = data.url;
+        }
+      }
+    }
+  });
+</script>
 </body>
 </html>
