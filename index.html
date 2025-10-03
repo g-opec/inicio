@@ -30,7 +30,7 @@
 <script>
 function carregarIframePeloHash() {
     const iframe = document.getElementById('app-iframe');
-    const appBaseUrl = 'SUA_URL_DO_GOOGLE_SCRIPT/exec'; 
+    const appBaseUrl = 'https://script.google.com/macros/s/AKfycbwAQbny25lVj_dL7anit85_q-AXswkk0YO_a_7WnqomYXsarlW5WSsl9r5ZuUumr6G3/exec'; 
 
     let hash = window.location.hash.substring(1) || "inicio"; 
     
@@ -43,10 +43,10 @@ function carregarIframePeloHash() {
 }
 
 // 1. Carrega o estado inicial
-//carregarIframePeloHash();
+carregarIframePeloHash();
 
 // 2. Escuta a mudança de hash (disparado pelo botão Voltar ou pelo google.script.history.push)
-//window.addEventListener('hashchange', carregarIframePeloHash); 
+window.addEventListener('hashchange', carregarIframePeloHash); 
 </script>
 </body>
 </html>
