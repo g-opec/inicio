@@ -36,7 +36,9 @@
 
     // 3. Obter a string de busca completa da página principal (ex: "?page=OUTRA&id=123")
     const urlSearchParams = window.location.search;
-
+    
+    let finalHash = '';          // String para o hash final na URL principal (deve começar com #)
+ 
     // 4. Verificar se há algum parâmetro na URL da página principal.
     // O 'urlSearchParams' terá um comprimento > 1 se tiver um '?' seguido de algo.
     if (urlSearchParams && urlSearchParams.length > 1) {
@@ -45,16 +47,26 @@
         
         // 5. Atualiza o SRC do iframe ANTES dele carregar.
         iframeElement.src = newSrc;
-        
         console.log("Iframe carregado com parâmetros da URL:", newSrc);
+     
+        // Converte o Query Param em Hash (Ex: '?page=X' para '#page=X')
+        finalHash = '#' + urlSearchParams.substring(1); 
+        
 
     } else {
         // Se NÃO houver parâmetros, o iframe mantém o 'baseSrc' original e
         // carrega o SRC padrão (que você garante que mostrará 'BEM_VINDO').
         // Nenhuma ação é necessária, mas deixamos o log para confirmação.
         console.log("Nenhum parâmetro detectado. Iframe carregado com SRC padrão:", baseSrc);
-    }
 
+        // Hash Bem_vindo
+        finalHash = '#' + 'Bem_vindo'; 
+    }
+     
+        // Atualiza a URL principal com o Hash e remove o Query Parameter.
+        window.history.replaceState(null, '', window.location.pathname + finalHash);       
+        console.log("URL inicial: Query Params convertidos para Hash:", finalHash);
+     
 
      // 1. Encontrar o elemento iframe
  //   const iframeElement = document.getElementById('my-gas-iframe');
@@ -135,3 +147,4 @@
 </script>
 </body>
 </html>
+
