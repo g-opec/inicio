@@ -24,29 +24,36 @@
  </head> 
 <body>
 <div id="container"> 
-<iframe id='my-gas-iframe' class="responsive-iframe" src="https://script.google.com/macros/s/AKfycbwAQbny25lVj_dL7anit85_q-AXswkk0YO_a_7WnqomYXsarlW5WSsl9r5ZuUumr6G3/exec?page=BEM_VINDO" allow="fullscreen; autoplay; camera; microphone; payment; geolocation">
+<iframe id='my-gas-iframe' class="responsive-iframe" src="https://script.google.com/macros/s/AKfycbwAQbny25lVj_dL7anit85_q-AXswkk0YO_a_7WnqomYXsarlW5WSsl9r5ZuUumr6G3/exec" allow="fullscreen; autoplay; camera; microphone; payment; geolocation">
 </iframe>
 </div>
 <script>
-function carregarIframePeloHash() {
-    const iframe = document.getElementById('my-gas-iframe');
-    const appBaseUrl = 'https://script.google.com/macros/s/AKfycbwAQbny25lVj_dL7anit85_q-AXswkk0YO_a_7WnqomYXsarlW5WSsl9r5ZuUumr6G3/exec'; 
+    // 1. Encontrar o elemento iframe pelo seu ID
+    const iframeElement = document.getElementById('my-gas-iframe');
 
-    let hash = window.location.hash.substring(1) || "BEM_VINDO"; 
-    
-    // Constrói a URL do iframe com o parâmetro de consulta para o Google Script
-    const finalIframeUrl = appBaseUrl + '?page=' + hash; 
-    
-    // Recarrega o iframe com o novo estado
-    iframe.src = finalIframeUrl;
-    console.log("Iframe recarregado com URL:", finalIframeUrl);
-}
+    // 2. Capturar a URL base original (o que está no atributo src do HTML)
+    const baseSrc = iframeElement.src;
 
-// 1. Carrega o estado inicial
-carregarIframePeloHash();
+    // 3. Obter a string de busca completa da página principal (ex: "?page=OUTRA&id=123")
+    const urlSearchParams = window.location.search;
 
-// 2. Escuta a mudança de hash (disparado pelo botão Voltar ou pelo google.script.history.push)
-window.addEventListener('hashchange', carregarIframePeloHash); 
+    // 4. Verificar se há algum parâmetro na URL da página principal.
+    // O 'urlSearchParams' terá um comprimento > 1 se tiver um '?' seguido de algo.
+    if (urlSearchParams && urlSearchParams.length > 1) {
+        // Se houver parâmetros, apensa a string de busca completa ao SRC do iframe.
+        const newSrc = baseSrc + urlSearchParams; 
+        
+        // 5. Atualiza o SRC do iframe ANTES dele carregar.
+        iframeElement.src = newSrc;
+        
+        console.log("Iframe carregado com parâmetros da URL:", newSrc);
+
+    } else {
+        // Se NÃO houver parâmetros, o iframe mantém o 'baseSrc' original e
+        // carrega o SRC padrão (que você garante que mostrará 'BEM_VINDO').
+        // Nenhuma ação é necessária, mas deixamos o log para confirmação.
+        console.log("Nenhum parâmetro detectado. Iframe carregado com SRC padrão:", baseSrc);
+    }
 </script>
 </body>
 </html>
