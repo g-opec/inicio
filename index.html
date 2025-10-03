@@ -24,15 +24,15 @@
  </head> 
 <body>
 <div id="container"> 
-<iframe id='my-gas-iframe' class="responsive-iframe" src="https://script.google.com/macros/s/AKfycbwAQbny25lVj_dL7anit85_q-AXswkk0YO_a_7WnqomYXsarlW5WSsl9r5ZuUumr6G3/exec" allow="fullscreen; autoplay; camera; microphone; payment; geolocation">
+<iframe id='my-gas-iframe' class="responsive-iframe" src="https://script.google.com/macros/s/AKfycbwAQbny25lVj_dL7anit85_q-AXswkk0YO_a_7WnqomYXsarlW5WSsl9r5ZuUumr6G3/exec?page=BEM_VINDO" allow="fullscreen; autoplay; camera; microphone; payment; geolocation">
 </iframe>
 </div>
 <script>
 function carregarIframePeloHash() {
     const iframe = document.getElementById('my-gas-iframe');
-    const appBaseUrl = 'https://script.google.com/macros/s/AKfycbwAQbny25lVj_dL7anit85_q-AXswkk0YO_a_7WnqomYXsarlW5WSsl9r5ZuUumr6G3/exec?page=BEM_VINDO'; 
+    const appBaseUrl = 'https://script.google.com/macros/s/AKfycbwAQbny25lVj_dL7anit85_q-AXswkk0YO_a_7WnqomYXsarlW5WSsl9r5ZuUumr6G3/exec'; 
 
-    let hash = window.location.hash.substring(1) || "inicio"; 
+    let hash = window.location.hash.substring(1) || "BEM_VINDO"; 
     
     // Constrói a URL do iframe com o parâmetro de consulta para o Google Script
     const finalIframeUrl = appBaseUrl + '?page=' + hash; 
