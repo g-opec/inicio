@@ -28,82 +28,110 @@
 </iframe>
 </div>
 <script>
-    // 1. Encontrar o elemento iframe
+    // 1. Encontrar o elemento iframe pelo seu ID
     const iframeElement = document.getElementById('my-gas-iframe');
+
+    // 2. Capturar a URL base original (o que está no atributo src do HTML)
+    const baseSrc = iframeElement.src;
+
+    // 3. Obter a string de busca completa da página principal (ex: "?page=OUTRA&id=123")
+    const urlSearchParams = window.location.search;
+
+    // 4. Verificar se há algum parâmetro na URL da página principal.
+    // O 'urlSearchParams' terá um comprimento > 1 se tiver um '?' seguido de algo.
+    if (urlSearchParams && urlSearchParams.length > 1) {
+        // Se houver parâmetros, apensa a string de busca completa ao SRC do iframe.
+        const newSrc = baseSrc + urlSearchParams; 
+        
+        // 5. Atualiza o SRC do iframe ANTES dele carregar.
+        iframeElement.src = newSrc;
+        
+        console.log("Iframe carregado com parâmetros da URL:", newSrc);
+
+    } else {
+        // Se NÃO houver parâmetros, o iframe mantém o 'baseSrc' original e
+        // carrega o SRC padrão (que você garante que mostrará 'BEM_VINDO').
+        // Nenhuma ação é necessária, mas deixamos o log para confirmação.
+        console.log("Nenhum parâmetro detectado. Iframe carregado com SRC padrão:", baseSrc);
+    }
+
+
+     // 1. Encontrar o elemento iframe
+ //   const iframeElement = document.getElementById('my-gas-iframe');
     
     // 2. Capturar a URL base original (limpando qualquer parâmetro existente)
-    const baseSrc = iframeElement.src.split('?')[0];
+ //   const baseSrc = iframeElement.src.split('?')[0];
 
     // 3. Obter as informações da URL principal
-    const urlSearchParams = window.location.search; // O que está depois do '?'
-    const urlHash = window.location.hash;           // O que está depois do '#'
+ //   const urlSearchParams = window.location.search; // O que está depois do '?'
+ //   const urlHash = window.location.hash;           // O que está depois do '#'
     
-    let paramsToLoadIframe = ''; // String para o src do iframe (deve começar com ?)
-    let finalHash = '';          // String para o hash final na URL principal (deve começar com #)
+ //   let paramsToLoadIframe = ''; // String para o src do iframe (deve começar com ?)
+ //   let finalHash = '';          // String para o hash final na URL principal (deve começar com #)
 
     // A. PRIORIDADE 1: Parâmetros de Consulta (Se a página foi carregada com ?page=X)
-    if (urlSearchParams && urlSearchParams.length > 1) {
+//    if (urlSearchParams && urlSearchParams.length > 1) {
         
         // Carrega o iframe com os parâmetros de consulta
-        paramsToLoadIframe = urlSearchParams; 
+ //       paramsToLoadIframe = urlSearchParams; 
         
         // Converte o Query Param em Hash (Ex: '?page=X' para '#page=X')
-        finalHash = '#' + urlSearchParams.substring(1); 
+ //       finalHash = '#' + urlSearchParams.substring(1); 
         
         // Atualiza a URL principal com o Hash e remove o Query Parameter.
-        window.history.replaceState(null, '', window.location.pathname + finalHash);
+ //       window.history.replaceState(null, '', window.location.pathname + finalHash);
         
-        console.log("URL inicial: Query Params convertidos para Hash:", finalHash);
+ //       console.log("URL inicial: Query Params convertidos para Hash:", finalHash);
 
-    } 
+ //   } 
     // B. PRIORIDADE 2: Hash Existente (Se a página foi carregada com #page=X)
-    else if (urlHash && urlHash.length > 1) {
+ //   else if (urlHash && urlHash.length > 1) {
         
-        finalHash = urlHash;
+ //       finalHash = urlHash;
         
         // O iframe do GAS App espera '?page=X', então converte o Hash
-        paramsToLoadIframe = '?' + finalHash.substring(1);
+ //       paramsToLoadIframe = '?' + finalHash.substring(1);
         
-        console.log("URL inicial: Carregada a partir de Hash existente:", finalHash);
-    }
+ //       console.log("URL inicial: Carregada a partir de Hash existente:", finalHash);
+ //   }
     // C. PRIORIDADE 3: Padrão (Se não tem '?' nem '#')
-    else {
+ //   else {
         // Define o Hash inicial BEM_VINDO na URL principal, mas não envia parâmetros para o iframe
-        finalHash = '#BEM_VINDO';
+ //       finalHash = '#BEM_VINDO';
         
         // Usa history.replaceState para setar o Hash inicial BEM_VINDO
-        window.history.replaceState(null, '', window.location.pathname + finalHash);
+ //       window.history.replaceState(null, '', window.location.pathname + finalHash);
         
-        console.log("Nenhum parâmetro detectado. Hash setado para BEM_VINDO. Iframe carrega o default.");
+ //       console.log("Nenhum parâmetro detectado. Hash setado para BEM_VINDO. Iframe carrega o default.");
         
         // paramsToLoadIframe permanece vazio, mantendo o SRC do iframe no padrão
-    }
+ //   }
     
     // 4. ATUALIZA O SRC DO IFRAME (só se paramsToLoadIframe tiver sido preenchido)
     // Se paramsToLoadIframe for vazio, iframeElement.src mantém seu valor original (baseSrc + nada).
-    iframeElement.src = baseSrc + paramsToLoadIframe;
-    console.log("Iframe carregado com SRC:", iframeElement.src);
+ //   iframeElement.src = baseSrc + paramsToLoadIframe;
+ //   console.log("Iframe carregado com SRC:", iframeElement.src);
 
 
     // 5. LISTENER PARA O BOTÃO VOLTAR/AVANÇAR DO NAVEGADOR (HASHCHANGE)
-    window.addEventListener('hashchange', function() {
-        const hashParams = window.location.hash;
-        const iframe = document.getElementById('my-gas-iframe');
-        const iframeBaseSrc = iframe.src.split('?')[0];
+ //   window.addEventListener('hashchange', function() {
+ //       const hashParams = window.location.hash;
+ //       const iframe = document.getElementById('my-gas-iframe');
+ //       const iframeBaseSrc = iframe.src.split('?')[0];
 
-        if (hashParams && hashParams.length > 1) {
+//        if (hashParams && hashParams.length > 1) {
             // Converte o novo hash (#page=X) para o formato de query param (?page=X)
-            const params = '?' + hashParams.substring(1);
-            iframe.src = iframeBaseSrc + params;
-            console.log("Hashchange detectado. Iframe recarregado para:", iframe.src);
-        } else {
+ //           const params = '?' + hashParams.substring(1);
+  //          iframe.src = iframeBaseSrc + params;
+   //         console.log("Hashchange detectado. Iframe recarregado para:", iframe.src);
+    //    } else {
             // Se o hash foi limpo (ex: voltando para a raiz sem hash)
             // Mantém a URL principal sem hash, mas carrega o iframe no default.
-            iframe.src = iframeBaseSrc; // Carrega o iframe no padrão (home/BEM_VINDO)
-            window.history.replaceState(null, '', window.location.pathname); // Limpa o Hash da URL
-            console.log("Hash limpo. Iframe recarregado para o default.");
-        }
-    });
+ //           iframe.src = iframeBaseSrc; // Carrega o iframe no padrão (home/BEM_VINDO)
+   //         window.history.replaceState(null, '', window.location.pathname); // Limpa o Hash da URL
+     //       console.log("Hash limpo. Iframe recarregado para o default.");
+       // }
+ //   });
 </script>
 </body>
 </html>
