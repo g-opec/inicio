@@ -64,7 +64,8 @@
     }
      
         // Atualiza a URL principal com o Hash e remove o Query Parameter.
-        window.history.replaceState(null, '', window.location.href + finalHash); 
+        window.location.replace(window.location.href);
+        //window.history.replaceState(null, '', window.location.href + finalHash); 
         window.location.hash = finalHash;
         console.log("URL :", window.location.href);
         console.log("URL :", window.location.hash);
