@@ -4,10 +4,10 @@
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <meta http-equiv="X-UA-Compatible" content="ie=edge">
- <link rel="apple-touch-icon" sizes="180x180" href="/master/fav/apple-touch-icon.png">
- <link rel="icon" type="image/png" sizes="32x32" href="/master/fav/favicon-32x32.png">
- <link rel="icon" type="image/png" sizes="16x16" href="/master/fav/favicon-16x16.png">
- <link rel="manifest" href="/master/fav/site.webmanifest">
+ <link rel="apple-touch-icon" sizes="180x180" href="/files/fav/apple-touch-icon.png">
+ <link rel="icon" type="image/png" sizes="32x32" href="/files/fav/favicon-32x32.png">
+ <link rel="icon" type="image/png" sizes="16x16" href="/files/fav/favicon-16x16.png">
+ <link rel="manifest" href="/files/fav/site.webmanifest">
  <title>G-opec</title>
  <style>
 		body {
@@ -23,7 +23,7 @@
 }
 
 .branding {
-	background-image: url('https://g-opec.github.io/master/fav/favicon-32x32.png');
+	background-image: url('https://g-opec.github.io/files/fav/favicon-32x32.png');
 	background-size: 24px;
 	background-repeat: no-repeat;
 	background-position: left center;
@@ -164,13 +164,13 @@ display: flex;
 </style>
  </head> 
 <body>
-   <a class="branding" href="https://g-opec.github.io/master/">
+   <a class="branding" href="https://g-opec.github.io/files/">
 		G-opec
 	</a>
 	<div class="container">
 	<div class="content">
 			<div class="icon-container">
-				<img src="https://g-opec.github.io/master/dev_photo.png" class="dev_photo">
+				<img src="https://g-opec.github.io/files/dev_photo.png" class="dev_photo">
 			</div>
 			<div class="shell-title">
 			<div class="shell-loader" data-a-target="shell-loader">
@@ -231,6 +231,7 @@ display: flex;
         finalHash = '#' + 'Bem_vindo'; 
     }
     let objHash = finalHash.split('#')[1];
+    objHash.replace("_"," ").replace("+"," ");;
     if(objHash.includes("&")){
     let objTextHash = objHash.split('&');
     for(let i = 0;i<objTextHash.length;i++){
@@ -249,32 +250,32 @@ display: flex;
      
         // Atualiza a URL principal com o Hash e remove o Query Parameter.
         //window.location.replace(window.location.href);
-        window.history.replaceState(null, '', window.location.href + finalHash); 
-        window.location.hash = finalHash;
-        console.log("URL :", window.location.href);
-        console.log("URL :", window.location.hash);
-        console.log("URL :", window.location.pathname);
-        console.log("URL inicial: Query Params convertidos para Hash:", finalHash);
+    //    window.history.replaceState(null, '', window.location.href + finalHash); 
+    //    window.location.hash = finalHash;
+    //    console.log("URL :", window.location.href);
+    //    console.log("URL :", window.location.hash);
+    //    console.log("URL :", window.location.pathname);
+    //    console.log("URL inicial: Query Params convertidos para Hash:", finalHash);
      
             // 5. LISTENER PARA O BOTÃO VOLTAR/AVANÇAR DO NAVEGADOR (HASHCHANGE)
-    window.addEventListener('hashchange', function() {
-        const hashParams = window.location.hash;
-        const iframe = document.getElementById('my-gas-iframe');
-        const iframeBaseSrc = iframe.src.split('?')[0];
-
-        if (hashParams && hashParams.length > 1) {
-            // Converte o novo hash (#page=X) para o formato de query param (?page=X)
-            const params = '?' + hashParams.substring(1);
-            iframe.src = iframeBaseSrc + params;
-            console.log("Hashchange detectado. Iframe recarregado para:", iframe.src);
-        } else {
-            // Se o hash foi limpo (ex: voltando para a raiz sem hash)
-            // Mantém a URL principal sem hash, mas carrega o iframe no default.
-            iframe.src = iframeBaseSrc; // Carrega o iframe no padrão (home/BEM_VINDO)
-            window.history.replaceState(null, '', window.location.pathname); // Limpa o Hash da URL
-            console.log("Hash limpo. Iframe recarregado para o default.");
-      }
-    });
+    //window.addEventListener('hashchange', function() {
+    //    const hashParams = window.location.hash;
+    //    const iframe = document.getElementById('my-gas-iframe');
+    //    const iframeBaseSrc = iframe.src.split('?')[0];
+//
+  //      if (hashParams && hashParams.length > 1) {
+    //        // Converte o novo hash (#page=X) para o formato de query param (?page=X)
+     //       const params = '?' + hashParams.substring(1);
+     //       iframe.src = iframeBaseSrc + params;
+     //       console.log("Hashchange detectado. Iframe recarregado para:", iframe.src);
+     //   } else {
+     //       // Se o hash foi limpo (ex: voltando para a raiz sem hash)
+     //       // Mantém a URL principal sem hash, mas carrega o iframe no default.
+     //       iframe.src = iframeBaseSrc; // Carrega o iframe no padrão (home/BEM_VINDO)
+     //       window.history.replaceState(null, '', window.location.pathname); // Limpa o Hash da URL
+     //       console.log("Hash limpo. Iframe recarregado para o default.");
+     // }
+    //});
 
 
 
