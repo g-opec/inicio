@@ -178,6 +178,7 @@ display: flex;
             </div>	
 			<h1 class="title">Carregando a pagina <span id="app-name"></span></h1>
 			</div>
+         <p id="sub"></p>
 			<div class="message">
 				<div class="success-message">
 					<p class="subtitle"></p>
@@ -229,7 +230,22 @@ display: flex;
         // Hash Bem_vindo
         finalHash = '#' + 'Bem_vindo'; 
     }
-     document.getElementById('app-name').innerText = finalHash.split('#')[1];
+    let objHash = finalHash.split('#')[1];
+    if(objTextHash.includes("&")){
+    let objTextHash = objHash.split('&');
+    for(let i = 0;i>objTextHash.length;i++){
+      if(objTextHash[i].includes("page=")){
+         document.getElementById('app-name').innerText = objTextHash[i].replace("page=","");
+      }
+      
+      if(objTextHash[i].includes("veiculo=")){
+         document.getElementById('sub').innerText = objTextHash[i].replace("veiculo=","");
+      }
+    }
+    }else{
+      document.getElementById('app-name').innerText = objHash;
+    }
+     
      
         // Atualiza a URL principal com o Hash e remove o Query Parameter.
         //window.location.replace(window.location.href);
