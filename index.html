@@ -231,7 +231,7 @@ display: flex;
         finalHash = '#' + 'Bem_vindo'; 
     }
     let objHash = finalHash.split('#')[1];
-    if(objTextHash.includes("&")){
+    if(objHash.includes("&")){
     let objTextHash = objHash.split('&');
     for(let i = 0;i>objTextHash.length;i++){
       if(objTextHash[i].includes("page=")){
