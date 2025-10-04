@@ -233,7 +233,7 @@ display: flex;
     let objHash = finalHash.split('#')[1];
     if(objHash.includes("&")){
     let objTextHash = objHash.split('&');
-    for(let i = 0;i>objTextHash.length;i++){
+    for(let i = 0;i<objTextHash.length;i++){
       if(objTextHash[i].includes("page=")){
          document.getElementById('app-name').innerText = objTextHash[i].replace("page=","");
       }
