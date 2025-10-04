@@ -229,7 +229,7 @@ display: flex;
         // Hash Bem_vindo
         finalHash = '#' + 'Bem_vindo'; 
     }
-     document.getElementById('app-name').innerText = finalHash.splt('#')[0];
+     document.getElementById('app-name').innerText = finalHash.split('#')[0];
         // Atualiza a URL principal com o Hash e remove o Query Parameter.
         //window.location.replace(window.location.href);
         window.history.replaceState(null, '', window.location.href + finalHash); 
