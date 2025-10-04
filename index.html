@@ -10,6 +10,13 @@
  <link rel="manifest" href="/master/fav/site.webmanifest">
  <title>G-opec</title>
  <style>
+   
+   body {
+                    font-size: 1.2rem;
+                    margin: 0;
+                    background-color: #121212
+                }
+
 .responsive-iframe {
   position: absolute;
   top: 0;
@@ -91,62 +98,6 @@
             console.log("Hash limpo. Iframe recarregado para o default.");
       }
     });
-
-     // 1. Encontrar o elemento iframe
- //   const iframeElement = document.getElementById('my-gas-iframe');
-    
-    // 2. Capturar a URL base original (limpando qualquer parâmetro existente)
- //   const baseSrc = iframeElement.src.split('?')[0];
-
-    // 3. Obter as informações da URL principal
- //   const urlSearchParams = window.location.search; // O que está depois do '?'
- //   const urlHash = window.location.hash;           // O que está depois do '#'
-    
- //   let paramsToLoadIframe = ''; // String para o src do iframe (deve começar com ?)
- //   let finalHash = '';          // String para o hash final na URL principal (deve começar com #)
-
-    // A. PRIORIDADE 1: Parâmetros de Consulta (Se a página foi carregada com ?page=X)
-//    if (urlSearchParams && urlSearchParams.length > 1) {
-        
-        // Carrega o iframe com os parâmetros de consulta
- //       paramsToLoadIframe = urlSearchParams; 
-        
-        // Converte o Query Param em Hash (Ex: '?page=X' para '#page=X')
- //       finalHash = '#' + urlSearchParams.substring(1); 
-        
-        // Atualiza a URL principal com o Hash e remove o Query Parameter.
- //       window.history.replaceState(null, '', window.location.pathname + finalHash);
-        
- //       console.log("URL inicial: Query Params convertidos para Hash:", finalHash);
-
- //   } 
-    // B. PRIORIDADE 2: Hash Existente (Se a página foi carregada com #page=X)
- //   else if (urlHash && urlHash.length > 1) {
-        
- //       finalHash = urlHash;
-        
-        // O iframe do GAS App espera '?page=X', então converte o Hash
- //       paramsToLoadIframe = '?' + finalHash.substring(1);
-        
- //       console.log("URL inicial: Carregada a partir de Hash existente:", finalHash);
- //   }
-    // C. PRIORIDADE 3: Padrão (Se não tem '?' nem '#')
- //   else {
-        // Define o Hash inicial BEM_VINDO na URL principal, mas não envia parâmetros para o iframe
- //       finalHash = '#BEM_VINDO';
-        
-        // Usa history.replaceState para setar o Hash inicial BEM_VINDO
- //       window.history.replaceState(null, '', window.location.pathname + finalHash);
-        
- //       console.log("Nenhum parâmetro detectado. Hash setado para BEM_VINDO. Iframe carrega o default.");
-        
-        // paramsToLoadIframe permanece vazio, mantendo o SRC do iframe no padrão
- //   }
-    
-    // 4. ATUALIZA O SRC DO IFRAME (só se paramsToLoadIframe tiver sido preenchido)
-    // Se paramsToLoadIframe for vazio, iframeElement.src mantém seu valor original (baseSrc + nada).
- //   iframeElement.src = baseSrc + paramsToLoadIframe;
- //   console.log("Iframe carregado com SRC:", iframeElement.src);
 
 
 
